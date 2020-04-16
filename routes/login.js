@@ -15,14 +15,14 @@ function user_login(req,res)
     var password = req.body.password
     // console.log(name,password)
 
-    users.findOne({$and : [{password : password} , {name : name}]} , {name:0,email:0,__v:0})
+    users.findOne({$and : [{password : password} , {name : name}]} , {_id:0,name:0,email:0,__v:0})
         .then(result=>
             {
                 if(!result)
-                    res.sendStatus(404)
+                    res.send('Not a User')
                 else
-                    res.send("Welcome "+name)
-                    return __id
+                    res.send("Welcome "+result.usertype+" "+name)
+                    // return __id
             })
         .catch(err=>
             {

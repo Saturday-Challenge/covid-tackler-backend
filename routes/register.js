@@ -14,17 +14,22 @@ function user_create(req,res)
     var user = new users({
         name : req.body.name,
         password : req.body.password,
-        email : req.body.email
+        email : req.body.email,
+        usertype : req.body.usertype
     });
 
     user.save((err)=>
     {
         if(err)
-            res.send(err.errmsg)
+            res.send(err)
         else
-            res.send('Registered '+req.body.name)
+        {
+            if(req.body.usertype == "Vendor" || req.body.usertype == "vendor")
+                res.send("Welcome Vendor "+req.body.name)
+            if(req.body.usertype == "Customer" || req.body.usertype == "customer")
+                res.send("Welcome Customer "+req.body.name)
+        }
     })
-    // res.end()
 }
 
 
